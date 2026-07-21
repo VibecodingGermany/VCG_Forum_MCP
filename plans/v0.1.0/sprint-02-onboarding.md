@@ -1,7 +1,7 @@
 ---
 sprint: 02
 title: VCG onboarding + OSS hygiene
-status: planned
+status: done
 version_relevance: minor
 ---
 
@@ -44,4 +44,18 @@ coder can go from zero → working MCP in a few minutes.
 - (at integration) "Added VCG onboarding, setup guide, and OSS hygiene (MIT, SECURITY.md, CODEOWNERS)."
 
 ## Result
-_(filled at integration)_
+Delivered the thin wrapper `@vibecoding/forum-mcp` (plain Node ESM) around the official
+`@discourse/mcp@0.2.9`. CLI: `login`/`serve`/`config`/`help`/`--version`; **read-only by default**
+with an authoritative write opt-in (`--write` / `VCG_FORUM_MCP_ALLOW_WRITES=1`). Full docs
+(README, docs/SETUP.md, SECURITY.md, CONTRIBUTING.md, CODEOWNERS, CHANGELOG, .env.example).
+
+Gates: **@validator APPROVED**, **@security APPROVED** (no critical/high; 3 advisory notes tracked:
+transitive Windows-only advisory in @discourse/mcp — unreachable here; passthrough write-flag L1;
+prompt-injection docs). @tester N/A (CLI, no web UI; playwright not required).
+
+Orchestrator polish post-gate: made the write posture authoritative (append `--read_only`/`--allow_writes`
+last → closes security L1), config snippets lead with the working `npx github:` form, and a doc-accuracy
+pass (local `0600` profile file vs. "keychain"; install order). Reports in `reports/v0.1.0/sprint-02/`.
+
+Acceptance criteria met, except live end-to-end auth — that is the member onboarding step and remains the
+Sprint 01 open item (user-credential + admin-scope gated). Shipped on `feat/sprint-02-wrapper` → PR.
