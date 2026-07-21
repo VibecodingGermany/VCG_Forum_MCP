@@ -1,0 +1,31 @@
+# Dependencies
+node_modules/
+
+# Build output
+dist/
+build/
+*.tsbuildinfo
+
+# Env / secrets — NEVER commit
+.env
+.env.*
+!.env.example
+
+# Discourse MCP profiles & User API Keys (local only, per-user)
+profile.json
+*.profile.json
+profiles/
+*.key
+*.pem
+secrets/
+
+# Logs
+*.log
+npm-debug.log*
+yarn-error.log*
+
+# OS / editor
+.DS_Store
+.idea/
+.vscode/
+*.swp
