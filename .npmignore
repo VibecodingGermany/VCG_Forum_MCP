@@ -1,0 +1,15 @@
+plans
+reports
+docs
+*.md
+!README.md
+.claude
+.github
+.gitignore
+.env*
+profile.json
+*.profile.json
+profiles
+*.key
+*.pem
+secrets

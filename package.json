@@ -1,0 +1,20 @@
+{
+  "name": "@vibecoding/forum-mcp",
+  "version": "0.1.0",
+  "description": "Thin, safe-by-default wrapper around the official @discourse/mcp server, pre-configured for the VCG forum.",
+  "license": "MIT",
+  "type": "module",
+  "engines": {
+    "node": ">=18"
+  },
+  "bin": {
+    "vcg-forum-mcp": "src/cli.js"
+  },
+  "files": [
+    "src"
+  ],
+  "repository": "github:VibecodingGermany/VCG_Forum_MCP",
+  "dependencies": {
+    "@discourse/mcp": "0.2.9"
+  }
+}
