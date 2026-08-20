@@ -1,0 +1,8 @@
+blank_issues_enabled: false
+contact_links:
+  - name: 💬 VibeCoding Germany Community Forum
+    url: https://forum.vibecoding-germany.de
+    about: Ask questions, discuss workflows, or share your MCP setups with the community!
+  - name: 🔒 Report a Security Vulnerability
+    url: mailto:hey@dennis-westermann.de
+    about: Please report security vulnerabilities privately via email.
