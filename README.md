@@ -28,7 +28,7 @@ Every answer includes **direct jump-links** back to the forum threads (`https://
 
 - 🔎 **Deep Forum Search (`discourse_search`):** Search topics and posts by keywords, tags, or categories.
 - 📋 **Activity & Thread Summaries (`discourse_filter_topics`, `discourse_read_topic`):** Read complete discussions or latest activity feeds.
-- ✍️ **AI Draft Creation (`discourse_save_draft`):** Have your AI prepare topic or reply drafts. They appear directly in your web browser's forum composer (under `+ Neues Thema` ▾) for your final review before publishing.
+- ✍️ **AI Draft Creation (`discourse_save_draft`):** Have your AI prepare topic or reply drafts with automatic category & tag selection. They appear directly in your web browser's forum composer (under `+ Neues Thema` ▾) for your final review before publishing.
 - 🛡️ **Zero-Trust & Local-First Security:** No central token database. Your personal Discourse User API Key is generated locally via RSA keypair and stored in `~/.config/vcg-forum-mcp/profile.json` (chmod `0600`).
 - 🔐 **Safe by Default:** Read-only mode by default (`--read_only=true`). Write operations require explicit `--write` opt-in.
 
@@ -91,13 +91,13 @@ Once connected, simply talk to your AI assistant:
 | :--- | :--- |
 | **Search Knowledge** | *"Suche im Forum nach LiteLLM Setup und fasse die wichtigsten Erkenntnisse zusammen."* |
 | **Weekly Digest** | *"Was sind die heißesten Diskussionen der letzten 7 Tage im Forum? Gib mir direkte Links dazu."* |
-| **Create a Draft** | *"Erstelle mir einen Entwurf für ein neues Thema über unser MCP-Tool in der Kategorie KI-Tools & Plattformen."* |
+| **Create a Draft** | *"Erstelle mir einen Entwurf für ein neues Thema über unser MCP-Tool mit passender Kategorie und Tags."* |
 
 ### 📌 Finding Your Drafts in the Forum
 When the AI creates a draft:
 1. Open [forum.vibecoding-germany.de](https://forum.vibecoding-germany.de).
 2. Click on **`+ Neues Thema`** (top left) or click the **arrow icon (▾)** next to it to open the list of all saved drafts.
-3. Review the text, select/verify your category, and click **Thema erstellen**!
+3. Review the text, check the pre-selected category and tags, and click **Thema erstellen**!
 
 ---
 
