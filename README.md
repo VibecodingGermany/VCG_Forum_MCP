@@ -1,148 +1,159 @@
-# VCG Forum MCP
+# VCG Forum MCP 🚀
 
-Access the **VibecodingGermany** Discourse forum from your AI sessions (Claude Code / Desktop) — **as yourself**. Ask your assistant to *"update my forum post"* or *"check if anyone replied to my topic"*, right from where you already work.
+[![MIT License](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
+[![Node Version](https://img.shields.io/badge/node-%3E%3D18-brightgreen.svg)](https://nodejs.org)
+[![MCP](https://img.shields.io/badge/MCP-Protocol-purple.svg)](https://modelcontextprotocol.io)
+[![Community](https://img.shields.io/badge/Community-VibeCoding%20Germany-orange.svg)](https://forum.vibecoding-germany.de)
+[![Author](https://img.shields.io/badge/Author-Dennis%20Westermann-black.svg?logo=github)](https://github.com/cubetribe)
 
-> **Status: v0.1.0 (stable)** — local-first, read-only by default, opt-in write support.
+> Connect your local AI coding assistant (**Claude Code**, **Claude Desktop**, **Antigravity**, **Cursor**, **Codex**) directly to the [VibeCoding Germany Forum](https://forum.vibecoding-germany.de) — search discussions, get digest summaries, and draft posts with human-in-the-loop verification.
 
-## What this is
+---
 
-A thin VibecodingGermany wrapper around the **official** [`@discourse/mcp`](https://github.com/discourse/discourse-mcp) server (MIT, by Discourse Inc.). You run it **locally**; on first use, it authorizes once against our forum via a **per-user Discourse User API Key**, then lets your assistant search, read, and — opt-in — write on your behalf.
+## 🌟 What is VCG Forum MCP?
 
-- **No central server, no stored tokens.** Your key stays in a local `0600` profile file on your own machine; it never touches a VCG server.
-- **Write is opt-in and guarded.** Confirmation before write actions, rate limits, forum content treated as untrusted.
-- **Per-user permissions.** The key inherits exactly your forum rights and rate limits.
+**VCG Forum MCP** is a local-first [Model Context Protocol (MCP)](https://modelcontextprotocol.io) server engineered for Discourse forums. While pre-configured out-of-the-box for the **[VibecodingGermany Community](https://forum.vibecoding-germany.de)**, it is designed to work with any modern Discourse instance.
 
-## Quick start (3 steps)
+Instead of constantly context-switching between your terminal/IDE and the browser, you can interact with the forum directly from your AI pairing sessions:
 
-### 1. Install
+- 🔍 *"Hat im Forum schon mal jemand über dieses Problem / diesen Stack gesprochen?"*
+- 📰 *"Fasse mir die 5 neuesten Diskussionen aus dieser Woche zusammen."*
+- ✍️ *"Schreibe einen Entwurf für einen Forum-Beitrag über mein neues Release."*
 
-Run it straight from the private repo — all `trusted-coders` have access, no install needed:
+Every answer includes **direct jump-links** back to the forum threads (`https://forum.vibecoding-germany.de/t/slug/id`), maximizing community engagement while keeping you in the flow.
+
+---
+
+## ⚡ Core Features
+
+- 🔎 **Deep Forum Search (`discourse_search`):** Search topics and posts by keywords, tags, or categories.
+- 📋 **Activity & Thread Summaries (`discourse_filter_topics`, `discourse_read_topic`):** Read complete discussions or latest activity feeds.
+- ✍️ **AI Draft Creation (`discourse_save_draft`):** Have your AI prepare topic or reply drafts. They appear directly in your web browser's forum composer (under `+ Neues Thema` ▾) for your final review before publishing.
+- 🛡️ **Zero-Trust & Local-First Security:** No central token database. Your personal Discourse User API Key is generated locally via RSA keypair and stored in `~/.config/vcg-forum-mcp/profile.json` (chmod `0600`).
+- 🔐 **Safe by Default:** Read-only mode by default (`--read_only=true`). Write operations require explicit `--write` opt-in.
+
+---
+
+## 🚀 Quick Start (3 Steps)
+
+### Step 1: Sign in to the Forum
+Open [https://forum.vibecoding-germany.de](https://forum.vibecoding-germany.de) in your browser and make sure you are signed in (Clerk SSO).
+
+### Step 2: Authorize (One-Time)
+Run the login command in your terminal:
 
 ```bash
 npx -y github:VibecodingGermany/VCG_Forum_MCP login
 ```
 
-Or clone and link for a local `vcg-forum-mcp` binary:
+*(Or clone the repository and run `npm install && npm link` to get the `vcg-forum-mcp` CLI globally).*
 
+1. The CLI displays an authorization URL.
+2. Open the URL in the browser where you are logged in.
+3. Click **Authorize** and copy the encrypted payload.
+4. Paste the payload back into the terminal. Your User API Key is saved locally with `0600` permissions.
+
+### Step 3: Add to Your AI Assistant
+
+#### A) Claude Code
 ```bash
-git clone https://github.com/VibecodingGermany/VCG_Forum_MCP.git
-cd VCG_Forum_MCP && npm install && npm link
+# Read-only (default, safe):
+claude mcp add vcg-forum -- npx -y github:VibecodingGermany/VCG_Forum_MCP serve
+
+# Write-enabled (allows saving drafts & posting):
+claude mcp add vcg-forum -- npx -y github:VibecodingGermany/VCG_Forum_MCP serve --write
 ```
 
-_Once published to npm, `npm install -g @vibecoding/forum-mcp` will also work._
-
-### 2. Authorize
-
-**Important:** Log into [https://forum.vibecoding-germany.de](https://forum.vibecoding-germany.de) in your browser **FIRST** using Clerk SSO. Make sure you are signed in, then run:
-
-```bash
-vcg-forum-mcp login
-```
-
-This opens an authorization URL. Approve it in your browser (you should still be signed in), copy the encrypted payload, and paste it back into the terminal. Your personal User API Key is saved to `~/.config/vcg-forum-mcp/profile.json` (permissions `0600`, read-only by you).
-
-### 3. Add to Claude Code
-
-Run:
-
-```bash
-vcg-forum-mcp config
-```
-
-This prints the `claude mcp add` command and `.mcp.json` snippet. Use the **read-only** (default) variant unless you need write access:
-
-**Read-only (safe, default):**
-```bash
-claude mcp add vcg-forum -- vcg-forum-mcp serve
-```
-
-**Write-enabled (opt-in, requires admin scope):**
-```bash
-claude mcp add vcg-forum -- vcg-forum-mcp serve --write
-```
-
-Add the MCP to your Claude Code config, and you're ready. Your assistant can now interact with the forum on your behalf.
-
-## Commands
-
-| Command | Alias | Purpose |
-|---------|-------|---------|
-| `vcg-forum-mcp login` | `auth` | Authorize once; saves your Discourse User API Key locally |
-| `vcg-forum-mcp serve` | (default, no args) | Start the MCP server (requires prior `login`) |
-| `vcg-forum-mcp config` | `print-config` | Print the `claude mcp add` command and `.mcp.json` snippet |
-| `vcg-forum-mcp help` | `--help`, `-h` | Show usage |
-| `vcg-forum-mcp --version` | | Print the installed version |
-
-## Write mode (opt-in)
-
-Write access is **off by default** — your assistant can only read. To enable writes:
-
-1. **Forum admin requirement (one-time):** An admin must enable the `write` scope in the forum's site settings under `allow_user_api_key_scopes`. Ask a VCG admin.
-2. **Your choice:** Use `--write` flag or set `VCG_FORUM_MCP_ALLOW_WRITES=1`:
-
-```bash
-vcg-forum-mcp serve --write
-```
-
-Or add to your `.mcp.json`:
-
+#### B) Claude Desktop / Cursor / Antigravity (`.mcp.json` / config)
 ```json
 {
   "mcpServers": {
     "vcg-forum": {
-      "command": "vcg-forum-mcp",
-      "args": ["serve", "--write"]
+      "command": "npx",
+      "args": [
+        "-y",
+        "github:VibecodingGermany/VCG_Forum_MCP",
+        "serve",
+        "--write"
+      ]
     }
   }
 }
 ```
 
-**Safety:** Keep writes off unless you really need them. When enabled, your assistant can post, edit, and delete as you. Always review what it's about to do. See [SECURITY.md](SECURITY.md) for details.
+---
 
-## Token security
+## 💡 How to Use
 
-Your Discourse User API Key is:
+Once connected, simply talk to your AI assistant:
 
-- Stored locally in `~/.config/vcg-forum-mcp/profile.json` with read-only permissions (`0600`).
-- Never sent to a VCG server — only to the Discourse forum.
-- Expires after 180 days of inactivity. After that, just run `vcg-forum-mcp login` again.
-- Scoped to your forum permissions and rate limits (20 requests/min, 2880/day).
+| Goal | Example Prompt |
+| :--- | :--- |
+| **Search Knowledge** | *"Suche im Forum nach LiteLLM Setup und fasse die wichtigsten Erkenntnisse zusammen."* |
+| **Weekly Digest** | *"Was sind die heißesten Diskussionen der letzten 7 Tage im Forum? Gib mir direkte Links dazu."* |
+| **Create a Draft** | *"Erstelle mir einen Entwurf für ein neues Thema über unser MCP-Tool in der Kategorie KI-Tools & Plattformen."* |
 
-See [SECURITY.md](SECURITY.md) for more.
+### 📌 Finding Your Drafts in the Forum
+When the AI creates a draft:
+1. Open [forum.vibecoding-germany.de](https://forum.vibecoding-germany.de).
+2. Click on **`+ Neues Thema`** (top left) or click the **arrow icon (▾)** next to it to open the list of all saved drafts.
+3. Review the text, select/verify your category, and click **Thema erstellen**!
 
-## Troubleshooting
+---
 
-### "No local profile found — you need to log in first"
-
-Run:
-```bash
-vcg-forum-mcp login
-```
-
-### Login redirects incorrectly or shows "unauthorized"
-
-**Make sure you are signed into the forum in your browser first.** The authorization flow uses Clerk SSO. If you're not already logged in to [https://forum.vibecoding-germany.de](https://forum.vibecoding-germany.de), the callback may not recognize you.
-
-**Fix:**
-1. Open [https://forum.vibecoding-germany.de](https://forum.vibecoding-germany.de) in your browser.
-2. Sign in with Clerk.
-3. Run `vcg-forum-mcp login` again.
-4. When the URL appears, open it in the **same browser** (the one where you're already signed in).
-
-### "Serve is read-only by default" or write actions fail
-
-Writes are off unless you explicitly enable them **and** an admin enables the `write` scope on the forum. Run:
+## 🛠️ CLI Reference
 
 ```bash
-vcg-forum-mcp serve --write
+vcg-forum-mcp login          # Interactive one-time authorization
+vcg-forum-mcp serve          # Start MCP server (read-only by default)
+vcg-forum-mcp serve --write  # Start MCP server with write/draft support
+vcg-forum-mcp config         # Print ready-to-use client snippets
+vcg-forum-mcp help           # Show available options
 ```
 
-If it still doesn't work, ask a VCG admin to verify the `allow_user_api_key_scopes` setting.
+---
 
-## Contributing
+## 🌐 Custom Discourse Forums
 
-Custom forum tools are contributed **upstream** to [`@discourse/mcp`](https://github.com/discourse/discourse-mcp) where possible, rather than maintained here. See [CONTRIBUTING.md](CONTRIBUTING.md).
+While configured by default for `https://forum.vibecoding-germany.de`, you can tether this MCP server to any Discourse forum:
 
-## License
+```bash
+vcg-forum-mcp serve --site https://your-discourse-forum.com
+```
 
-[MIT](LICENSE) — © 2026 VibecodingGermany.
+---
+
+## 🔒 Security & Token Safety
+
+- **No Remote Token Storage:** Your User API Key never leaves your local machine.
+- **Strict File Permissions:** Profile files are locked to `0600` (read/write only by owner).
+- **Inherited Permissions:** The MCP server operates strictly within your own user permissions, trust level, and rate limits on the forum.
+- See [SECURITY.md](SECURITY.md) for full security disclosures.
+
+---
+
+## 👨‍💻 Author & Maintainer
+
+Created & developed with ❤️ by:
+
+**Dennis Westermann**  
+- GitHub: [@cubetribe](https://github.com/cubetribe)  
+- Website: [dennis-westermann.de](https://dennis-westermann.de)  
+- Community Profile: [@Dennis auf VibecodingGermany](https://forum.vibecoding-germany.de)
+
+---
+
+## 🤝 Community & Support
+
+**VibeCoding Germany e.V. (i.G.)**  
+- 🌐 Website: [vibecoding-germany.de](https://vibecoding-germany.de)  
+- 💬 Community Forum: [forum.vibecoding-germany.de](https://forum.vibecoding-germany.de)  
+- 🐙 Organization: [github.com/VibecodingGermany](https://github.com/VibecodingGermany)
+
+Pull requests, issues, and ideas are warmly welcome!
+
+---
+
+## 📄 License
+
+[MIT License](LICENSE) — Copyright (c) 2026 Dennis Westermann / VibecodingGermany.
