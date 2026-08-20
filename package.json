@@ -1,7 +1,9 @@
 {
   "name": "@vibecoding/forum-mcp",
   "version": "0.1.0",
-  "description": "Thin, safe-by-default wrapper around the official @discourse/mcp server, pre-configured for the VCG forum.",
+  "description": "Model Context Protocol (MCP) server for Discourse forums — pre-configured for the VibecodingGermany community (forum.vibecoding-germany.de). Live search, activity feeds, and AI draft creation for Claude Code, Antigravity, and AI agents.",
+  "author": "Dennis Westermann <hey@dennis-westermann.de> (https://github.com/cubetribe)",
+  "homepage": "https://forum.vibecoding-germany.de",
   "license": "MIT",
   "type": "module",
   "engines": {
@@ -13,7 +15,24 @@
   "files": [
     "src"
   ],
-  "repository": "github:VibecodingGermany/VCG_Forum_MCP",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/VibecodingGermany/VCG_Forum_MCP.git"
+  },
+  "bugs": {
+    "url": "https://github.com/VibecodingGermany/VCG_Forum_MCP/issues"
+  },
+  "keywords": [
+    "mcp",
+    "model-context-protocol",
+    "discourse",
+    "vibecoding",
+    "claude-code",
+    "claude-desktop",
+    "antigravity",
+    "ai-agents",
+    "forum"
+  ],
   "dependencies": {
     "@discourse/mcp": "0.2.9"
   }

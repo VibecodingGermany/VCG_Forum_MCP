@@ -10,9 +10,9 @@ This guide walks you through setting up VCG Forum MCP step-by-step, including th
 
 ## Installation
 
-### Option A: From the private GitHub repo (recommended)
+### Option A: Direct from GitHub with npx (recommended)
 
-If you have GitHub access to `VibecodingGermany/VCG_Forum_MCP`:
+No local git clone needed:
 
 ```bash
 npx -y github:VibecodingGermany/VCG_Forum_MCP login
