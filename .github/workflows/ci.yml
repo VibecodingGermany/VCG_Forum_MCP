@@ -37,12 +37,9 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
-      - name: Verify CLI Version & Help
+      - name: Verify CLI Commands
         run: |
           node src/cli.js --version
           node src/cli.js --help
+          node src/cli.js help
           node src/cli.js config
-
-      - name: Smoke Test (CLI Entrypoint & Arg Parser)
-        run: |
-          node -e "import('./src/cli.js');" -- --help
