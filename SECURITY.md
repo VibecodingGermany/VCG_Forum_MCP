@@ -78,11 +78,11 @@ Neither this wrapper nor `@discourse/mcp` runs any install-time scripts (`preins
 If you find a security issue in this wrapper:
 
 1. **Do not open a public GitHub issue.**
-2. **Email** `cubetribe@googlemail.com` with:
+2. **Email** `hey@dennis-westermann.de` with:
    - A description of the vulnerability
    - Steps to reproduce (if applicable)
    - Potential impact
-3. We will investigate and coordinate a fix/release.
+3. We will acknowledge receipt within 48 hours and coordinate a fix/release.
 
 ## Secret management
 

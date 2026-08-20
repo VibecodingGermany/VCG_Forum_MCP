@@ -1,0 +1,22 @@
+name: ✨ Feature Request / Improvement
+description: Suggest an idea or tool improvement for VCG Forum MCP
+labels: ["enhancement"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Have an idea to make VCG Forum MCP better? We would love to hear it!
+  - type: textarea
+    id: feature-description
+    attributes:
+      label: Feature / Tool Description
+      description: What tool or functionality would you like to see added?
+    validations:
+      required: true
+  - type: textarea
+    id: use-case
+    attributes:
+      label: Use Case / AI Workflow
+      description: How would you use this with your AI assistant (Claude Code, Desktop, Cursor, etc.)?
+    validations:
+      required: true

@@ -1,0 +1,37 @@
+name: 🐛 Bug Report
+description: Report a bug or unexpected behavior in VCG Forum MCP
+labels: ["bug"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for taking the time to report an issue! Please provide as much detail as possible.
+  - type: input
+    id: version
+    attributes:
+      label: VCG Forum MCP Version
+      description: What version are you using? (Run `vcg-forum-mcp --version` or check your npx output)
+      placeholder: e.g. 0.1.0
+    validations:
+      required: true
+  - type: input
+    id: environment
+    attributes:
+      label: Environment & AI Client
+      description: OS and AI client where the issue occurred
+      placeholder: e.g. macOS Sequoia 15.2 / Claude Code 1.0.18 / Claude Desktop / Antigravity
+    validations:
+      required: true
+  - type: textarea
+    id: description
+    attributes:
+      label: What happened?
+      description: Describe the bug and what you expected to happen instead.
+    validations:
+      required: true
+  - type: textarea
+    id: logs
+    attributes:
+      label: Relevant Log Output
+      description: Please copy and paste any relevant terminal output (ensure no secrets are included!).
+      render: shell
