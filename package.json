@@ -34,6 +34,6 @@
     "forum"
   ],
   "dependencies": {
-    "@discourse/mcp": "0.2.9"
+    "@discourse/mcp": "0.3.1"
   }
 }
