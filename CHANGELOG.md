@@ -7,6 +7,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Changed
+- Minimum Node.js version raised from 18 to 24 to match `@discourse/mcp`, which declares `engines.node >=24` since 0.2.9; the CI matrix now tests Node 24.x and 26.x instead of 18.x/20.x/22.x, and the security audit runs on 24.x
+
 ### Added
 - Thin wrapper package `@vibecoding/forum-mcp` that wraps the official `@discourse/mcp@0.2.9` server
 - CLI commands: `vcg-forum-mcp login`, `serve`, `config`, `help`, `--version`
