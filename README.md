@@ -1,7 +1,7 @@
 # VCG Forum MCP 🚀
 
 [![MIT License](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
-[![Node Version](https://img.shields.io/badge/node-%3E%3D18-brightgreen.svg)](https://nodejs.org)
+[![Node Version](https://img.shields.io/badge/node-%3E%3D24-brightgreen.svg)](https://nodejs.org)
 [![MCP](https://img.shields.io/badge/MCP-Protocol-purple.svg)](https://modelcontextprotocol.io)
 [![Community](https://img.shields.io/badge/Community-VibeCoding%20Germany-orange.svg)](https://forum.vibecoding-germany.de)
 [![Author](https://img.shields.io/badge/Author-Dennis%20Westermann-black.svg?logo=github)](https://github.com/cubetribe)

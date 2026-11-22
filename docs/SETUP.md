@@ -4,7 +4,7 @@ This guide walks you through setting up VCG Forum MCP step-by-step, including th
 
 ## Prerequisites
 
-- **Node.js ≥ 18** (check with `node --version`)
+- **Node.js ≥ 24** (check with `node --version`)
 - GitHub CLI or git (if installing from the private repo)
 - A Clerk account linked to the VibecodingGermany forum
 
